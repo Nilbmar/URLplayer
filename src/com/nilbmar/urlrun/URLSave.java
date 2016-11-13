@@ -192,12 +192,13 @@ public class URLSave extends Application {
 	 * when removing favorites
 	 */
 	private Double getNewSize() {
-		ReadFavorites faves = new ReadFavorites();
-		String[] arrFaves = faves.getString();
+		//ReadFavorites faves = new ReadFavorites();
+		//String[] arrFaves = faves.getString();
 		
 		// Get count for how many faves
-		int faveCount = arrFaves.length; // 2 folders showing, int will be 2
-		System.out.println(faveCount);
+		int faveCount = faveBox.getChildren().size();
+		// May need to change this back to ReadFavorites
+		// = arrFaves.length; // 2 folders showing, int will be 2
 		
 		// Calculate new width
 		Double newSize = (double) ((faveCount * 64)); // was going + 2, leaving it out for now
@@ -219,10 +220,9 @@ public class URLSave extends Application {
 		int countOfFavorites = faveBox.getChildren().size() - 1;
 		faveBox.getChildren().remove(idToRemove);
 		
-		// Doesn't currently work because they aren't recounted
+		// Doesn't currently work because 
+		// because it reads from file, not whats showing
 		getNewSize();
-		
-		// TODO: TESTING GIT CHANGES
 	}
 	
 	public static void main(String[] args) {
