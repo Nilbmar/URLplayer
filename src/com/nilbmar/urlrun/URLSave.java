@@ -221,8 +221,6 @@ public class URLSave extends Application {
 		
 		// Doesn't currently work because they aren't recounted
 		getNewSize();
-		
-		// TODO: TESTING GIT CHANGES
 	}
 	
 	public static void main(String[] args) {
