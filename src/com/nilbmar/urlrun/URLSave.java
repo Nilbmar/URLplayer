@@ -192,13 +192,13 @@ public class URLSave extends Application {
 	 * when removing favorites
 	 */
 	private Double getNewSize() {
+		// May need to change this back to ReadFavorites
 		//ReadFavorites faves = new ReadFavorites();
 		//String[] arrFaves = faves.getString();
+		// int faveCount = arrFaves.length; // 2 folders showing, int will be 2
 		
 		// Get count for how many faves
 		int faveCount = faveBox.getChildren().size();
-		// May need to change this back to ReadFavorites
-		// = arrFaves.length; // 2 folders showing, int will be 2
 		
 		// Calculate new width
 		Double newSize = (double) ((faveCount * 64)); // was going + 2, leaving it out for now
