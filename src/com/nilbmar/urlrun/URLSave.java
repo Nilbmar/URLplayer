@@ -224,6 +224,12 @@ public class URLSave extends Application {
 		int idToRemove = i;
 		int countOfFavorites = faveBox.getChildren().size() - 1;
 		
+		// This is giving the correct number I need to adjust
+		int countToRemove = countOfFavorites - idToRemove;
+		System.out.println(countOfFavorites + " - " + idToRemove + " = " + countToRemove);
+		if (countToRemove > 0) {
+			
+		}
 		
 		faveBox.getChildren().remove(idToRemove);
 		
