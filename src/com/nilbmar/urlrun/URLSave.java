@@ -77,7 +77,7 @@ public class URLSave extends Application {
 						listOfFavorites.add(newFavorite);
 						idInList++;
 						
-						// Resize window
+						// Reset screen width
 						primaryStage.setWidth(getNewSize());
 					}
 				}
@@ -114,6 +114,9 @@ public class URLSave extends Application {
 						// Reset IDs so subsequent deletes
 						// don't go out of bounds
 						resetFaveIDs();
+						
+						// Reset screen width
+						primaryStage.setWidth(getNewSize());
 					}
 					
 				}
@@ -154,6 +157,8 @@ public class URLSave extends Application {
 			primaryStage.show();
 			
 			autoLoadFavorites();
+			
+			// Reset screen width
 			primaryStage.setWidth(getNewSize());
 			
 
@@ -195,7 +200,7 @@ public class URLSave extends Application {
 		// May need to change this back to ReadFavorites
 		//ReadFavorites faves = new ReadFavorites();
 		//String[] arrFaves = faves.getString();
-		// int faveCount = arrFaves.length; // 2 folders showing, int will be 2
+		//int faveCount = arrFaves.length; // 2 folders showing, int will be 2
 		
 		// Get count for how many faves
 		int faveCount = faveBox.getChildren().size();
@@ -218,11 +223,10 @@ public class URLSave extends Application {
 	private void deleteFave(int i) {
 		int idToRemove = i;
 		int countOfFavorites = faveBox.getChildren().size() - 1;
+		
+		
 		faveBox.getChildren().remove(idToRemove);
 		
-		// Doesn't currently work because 
-		// because it reads from file, not whats showing
-		getNewSize();
 	}
 	
 	public static void main(String[] args) {
