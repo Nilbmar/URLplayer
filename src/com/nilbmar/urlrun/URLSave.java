@@ -3,7 +3,6 @@ package com.nilbmar.urlrun;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.ListIterator;
 
 import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
@@ -11,7 +10,6 @@ import com.nilbmar.utils.SaveFavorites;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -210,14 +208,6 @@ public class URLSave extends Application {
 		}
 		
 		return newSize;
-	}
-	
-	private void resetFaveIDs(ArrayList<Favorite> faves, int id) {
-		// Reset IDs so subsequent deletes
-		// don't go out of bounds
-		// TODO: SETUP RESETING FAVORITE IDs
-		int lowerId = id - 1;
-		faves.get(id).setFaveId(lowerId);
 	}
 	
 	private void deleteFave(int id) {
