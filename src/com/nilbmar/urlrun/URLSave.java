@@ -3,6 +3,7 @@ package com.nilbmar.urlrun;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ListIterator;
 
 import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
@@ -10,6 +11,7 @@ import com.nilbmar.utils.SaveFavorites;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -95,6 +97,7 @@ public class URLSave extends Application {
 					
 					for (int x = 0; x < listOfFavorites.size(); x++) {
 						if (listOfFavorites.get(x).getSelected()) {
+							listOfFavorites.get(x).setSelected(false);
 							itemsToDel.add(listOfFavorites.get(x).getFaveId());
 						}
 					}
@@ -107,13 +110,8 @@ public class URLSave extends Application {
 						deleteMe[x] = (int) itemsToDel.get(x);
 					}
 					
-					
 					for (int id : deleteMe) {
 						deleteFave(id);
-						
-						// Reset IDs so subsequent deletes
-						// don't go out of bounds
-						resetFaveIDs();
 						
 						// Reset screen width
 						primaryStage.setWidth(getNewSize());
@@ -214,25 +212,27 @@ public class URLSave extends Application {
 		return newSize;
 	}
 	
-	private void resetFaveIDs() {
+	private void resetFaveIDs(ArrayList<Favorite> faves, int id) {
 		// Reset IDs so subsequent deletes
 		// don't go out of bounds
 		// TODO: SETUP RESETING FAVORITE IDs
+		int lowerId = id - 1;
+		faves.get(id).setFaveId(lowerId);
 	}
 	
-	private void deleteFave(int i) {
-		int idToRemove = i;
-		int countOfFavorites = faveBox.getChildren().size() - 1;
+	private void deleteFave(int id) {
+		int idToRemove = id;
+		int countOfFavorites = faveBox.getChildren().size();
 		
-		// This is giving the correct number I need to adjust
-		int countToRemove = countOfFavorites - idToRemove;
-		System.out.println(countOfFavorites + " - " + idToRemove + " = " + countToRemove);
-		if (countToRemove > 0) {
-			
+		int countToUpdate = countOfFavorites - (idToRemove + 1);
+		if (countToUpdate > 0) {
+			for (int x = id + 1; x < countOfFavorites; x++) {
+				listOfFavorites.get(x).setFaveId(x - 1);
+			}			
 		}
-		
+
 		faveBox.getChildren().remove(idToRemove);
-		
+		listOfFavorites.remove(idToRemove);
 	}
 	
 	public static void main(String[] args) {

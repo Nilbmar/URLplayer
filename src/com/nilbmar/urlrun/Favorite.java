@@ -279,21 +279,31 @@ public class Favorite extends VBox{
 			}
 			
 			// TODO: TRY TO MAKE THIS TOOLTIP SHOW UP WHEN HOVERING ABOVE THE WHOLE FAVORITE
-			Tooltip tip = new Tooltip(pathFull + " ID: "+ id);
+			Tooltip tip = new Tooltip(pathFull);
 			lblFolderName.setTooltip(tip);
 		}
 	}
 	
+	public String getPath() {
+		return pathFull;
+	}
+	
+	/* used to update when favorite is removed */
 	public int getFaveId() {
 		return id;
 	}
 	
+	/* used to update when favorite is removed */
 	public void setFaveId(int i) {
 		id = i;
 	}
 	
 	public boolean getSelected() {
 		return selected;
+	}
+	
+	public void setSelected(boolean s) {
+		selected = s;
 	}
 	
 	public Node get() {		
@@ -394,15 +404,5 @@ public class Favorite extends VBox{
 				Duration.millis(2500),
 				ae -> vBox.getChildren().remove(checkmark)));
 		timeline.play();
-	}
-	
-	/* used to update when favorite is removed */
-	private void setID(int i) {
-		id = i;
-	}
-	
-	/* used to update when favorite is removed */
-	private int getID() {
-		return id;
 	}
 }
