@@ -13,17 +13,16 @@ public class SaveFavorites {
 		file = getLoc.getFavoritesList();
 	}
 	
-	public void create(String f) {		
-		String favorite = f;
+	public void create(String f) {
+		String lineBreak = "\r\n"; // Always use Windows line break
+		String content = f;
+		System.out.println(file);
 		
 		try {
-			String lineBreak = "\r\n"; // Always use Windows line break
 			
 			// TODO: CHANGE FROM WRITING SINGLE FAVORITE AT A TIME
 			//       TO REWRITING FILE ON EXIT
 			//       ALSO REMOVE ANY DUPLICATES
-			String content = favorite;
-			System.out.println(file);
 			FileWriter writer = new FileWriter(file, true);
 			
 			writer.append(lineBreak + content);
