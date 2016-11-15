@@ -222,6 +222,8 @@ public class URLSave extends Application {
 		}
 
 		faveBox.getChildren().remove(idToRemove);
+		SaveFavorites delFromFile = new SaveFavorites();
+		delFromFile.delete(listOfFavorites.get(idToRemove).getPath());
 		listOfFavorites.remove(idToRemove);
 	}
 	
