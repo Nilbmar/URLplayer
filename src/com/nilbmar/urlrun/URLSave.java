@@ -8,8 +8,11 @@ import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,6 +33,7 @@ public class URLSave extends Application {
 	VBox outerBox;
 	Button btnAddFolder;
 	Button btnDelFolder;
+	Button btnMoveUp;
 	Label pathLabel;
 	Label lblSaveConfirm;
 	ArrayList<Favorite> listOfFavorites = new ArrayList<Favorite>();
@@ -118,6 +122,37 @@ public class URLSave extends Application {
 				}
 			});
 			
+			/* Button to swap positions of favorites
+			 * TEMP: HARD CODING NUMBERS FOR TESTING
+			 * TODO: SWAP OUT FOR REAL LOGIC
+			 */
+			Image upImg = new Image("/com/nilbmar/assets/swap_16.png");
+			btnMoveUp = new Button();
+			btnMoveUp.setGraphic(new ImageView(upImg));
+			btnMoveUp.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					ArrayList<Integer> swapList = new ArrayList<Integer>();
+					
+					for (int x = 0; x < listOfFavorites.size(); x++) {
+						if (listOfFavorites.get(x).getSelected()) {
+							listOfFavorites.get(x).setSelected(false);
+							swapList.add(x);
+						}
+					}
+					
+					if (swapList.size() == 2) {
+						// Complete swap
+						swapFaves(swapList.get(0), swapList.get(1));
+					} else {
+						System.out.println("Select two favorites to swap by clicking on their labels");
+					}
+				}
+				
+			});
+			
 			//TODO: FIGURE OUT HOW TO MAKE THIS DISAPPEAR AFTER A TIME
 			//		OR CHANGE IT TO A ICON THAT SELF-DESTRUCTS
 			lblSaveConfirm = new Label();
@@ -137,6 +172,7 @@ public class URLSave extends Application {
 			
 			controlBox.getChildren().add(btnAddFolder);
 			controlBox.getChildren().add(btnDelFolder);
+			controlBox.getChildren().add(btnMoveUp);
 			controlBox.getChildren().add(lblSaveConfirm);
 			
 			bottomBox.getChildren().add(pathLabel);
@@ -210,10 +246,17 @@ public class URLSave extends Application {
 		return newSize;
 	}
 	
+	/* Remove favorite from
+	 * listOfFavorites, faveBox, and text file
+	 * 
+	 * Correct the id number of all Favorites after
+	 * the one deleted
+	 */
 	private void deleteFave(int id) {
 		int idToRemove = id;
 		int countOfFavorites = faveBox.getChildren().size();
 		
+		// Correct id numbers in Favorites
 		int countToUpdate = countOfFavorites - (idToRemove + 1);
 		if (countToUpdate > 0) {
 			for (int x = id + 1; x < countOfFavorites; x++) {
@@ -221,10 +264,26 @@ public class URLSave extends Application {
 			}			
 		}
 
+		// Removal from display, save file, and list
 		faveBox.getChildren().remove(idToRemove);
 		SaveFavorites delFromFile = new SaveFavorites();
 		delFromFile.delete(listOfFavorites.get(idToRemove).getPath());
 		listOfFavorites.remove(idToRemove);
+	}
+	
+	/* Allow favorites to be rearranged
+	 * moveUp, true will move up index
+	 * false will move down index
+	 */
+	private void swapFaves(int idOne, int idTwo) {
+		// Swap in display
+		ObservableList<Node> newList = FXCollections.observableArrayList(faveBox.getChildren());
+		Collections.swap(newList, idOne, idTwo);
+		faveBox.getChildren().setAll(newList);
+		
+		// Swap in list
+		Collections.swap(listOfFavorites, idOne, idTwo);
+		System.out.println(listOfFavorites);
 	}
 	
 	public static void main(String[] args) {

@@ -304,6 +304,7 @@ public class Favorite extends VBox{
 	
 	public void setSelected(boolean s) {
 		selected = s;
+		setCSS(selected);
 	}
 	
 	public Node get() {		
