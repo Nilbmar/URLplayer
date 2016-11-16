@@ -284,6 +284,19 @@ public class URLSave extends Application {
 		// Swap in list
 		Collections.swap(listOfFavorites, idOne, idTwo);
 		System.out.println(listOfFavorites);
+		
+		/* Save full list of swapped favorites */
+		// Get a list of locations stored in each Favorite 
+		ArrayList<String> listFaveLocations = new ArrayList<String>();
+		for (Favorite f : listOfFavorites) {
+			listFaveLocations.add(f.getPath());
+		}
+		// Change the ArrayList to String[]
+		String[] arrOfFavorites = new String[listFaveLocations.size()];
+		arrOfFavorites = listFaveLocations.toArray(arrOfFavorites);
+		// Do the actual saving
+		SaveFavorites saveList = new SaveFavorites();
+		saveList.save(arrOfFavorites);
 	}
 	
 	public static void main(String[] args) {

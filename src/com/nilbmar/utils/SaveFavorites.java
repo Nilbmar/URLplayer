@@ -14,6 +14,30 @@ public class SaveFavorites {
 		file = getLoc.getFavoritesList();
 	}
 	
+	public void save(String[] faves) {
+		String lineBreak = "\r\n";
+		String[] arrOfFaves = faves;
+		
+		try {
+			FileWriter writer = new FileWriter(file, false);
+			
+			int lineIndex = 0;
+			for (String fave : arrOfFaves) {
+				if (lineIndex > 0) {
+					writer.append(lineBreak + fave);
+				} else {
+					writer.append(fave);
+					lineIndex++;
+				}
+			}
+			
+			writer.close();
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public void create(String favorite) {
 		String lineBreak = "\r\n"; // Always use Windows line break
 		String content = favorite;
