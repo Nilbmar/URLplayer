@@ -28,14 +28,15 @@ public class TitleStripper {
 		
 		// TODO: CHANGE THIS TO READ FROM A CONFIG FILE
 		//       SINCE GOOGLE MIGHT CHANGE IT
-		String googleSearch = "https://www.google.com/#q=";
+		String googleSearch = "https://www.google.com/?q=";
+		String endLegitSearch = "&oq=";
 		if (url.contains(googleSearch)) {
 			String tmpTitle = url.substring(googleSearch.length());
 			
 			// May be deprecated
-			if (url.contains("&rlz")) {
-			// "&rlz" follows the search term in a google search url
-				tmpTitle = url.substring(googleSearch.length(), url.indexOf("&rlz"));
+			if (url.contains(endLegitSearch)) {
+			// endLegitSearch follows the search term in a google search url
+				tmpTitle = url.substring(googleSearch.length(), url.indexOf(endLegitSearch));
 			}
 			
 			tmpTitle = tmpTitle.replace("+", " ") + " - Google Search";
