@@ -167,7 +167,7 @@ public class Favorite extends VBox{
 							} else {
 								// TODO: FIGURE OUT HOW TO OPEN DEFAULT FILE MANAGER
 								//       IN LINUX, POSSIBLY FOR EACH KNOWN FM
-								System.out.println("Desktop is NOT supported");
+								
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Information: Feature Unavailable");
 								alert.setHeaderText("This feature is currently unavailable in Linux");
@@ -288,12 +288,12 @@ public class Favorite extends VBox{
 		return pathFull;
 	}
 	
-	/* used to update when favorite is removed */
+	/* used to update when another favorite is removed */
 	public int getFaveId() {
 		return id;
 	}
 	
-	/* used to update when favorite is removed */
+	/* used to update when another favorite is removed */
 	public void setFaveId(int i) {
 		id = i;
 	}
@@ -311,6 +311,13 @@ public class Favorite extends VBox{
 		return vBox;
 	}
 	
+	/* Gets the clipboard contents as a string
+	 * Checks if they contain the "http:" or "https:" at the beginning
+	 * Getting contents as a URL instead of as a String sometimes fails
+	 * Even it is a valid URL
+	 * Most likely when it doesn't contain a recognized
+	 * Top-Level-Domain like .com or .org
+	 */
 	public void getClipUrl(String clipped) {		
 		if (clipped.contains("http:") || clipped.contains("https:")) {
 			url = clipped;
@@ -328,13 +335,17 @@ public class Favorite extends VBox{
 		}
 	}
 
-	//TODO: PROBABLY NEED TO MAKE THIS RETURN STRING
-	//		INSTEAD OF SETTING VARIABLE DIRECTLY
+	/* Used TitleStripper util to cut out characters
+	 * that can't be used as a filename
+	 * 
+	 * - TitleStripper manually sets title for google searches
+	 *       because TitleExtractor can't handle them
+	 * - TitleStripper then makes the call to TitleExtractor
+	 *       and strips out characters not usable for filenames 
+	 */
 	private void getUrlTitle() {
-		// TitleStripper manually sets title for google searches
-		//    because TitleExtractor can't handle them
-		// TitleStripper then makes the call to TitleExtractor
-		//    and strips out characters not usable for filenames
+		// TODO: PROBABLY NEED TO MAKE THIS RETURN STRING
+		//		INSTEAD OF SETTING VARIABLE DIRECTLY
 		try {
 			TitleStripper stripper = new TitleStripper(url);
 			title = stripper.getTitle();
@@ -346,10 +357,12 @@ public class Favorite extends VBox{
 			alert.showAndWait();
 			
 			// Only allow file creation if the try was successful
+			// otherwise empty out the title
 			title = "";
 		} 
 	}
 	
+	/* Creates the actual .URL file */
 	private void output() {
 		// Only allow file creation if title was successfully found
 		if (title != null && !title.isEmpty()) {
@@ -376,6 +389,10 @@ public class Favorite extends VBox{
 		} 
 	}
 	
+	
+	/* Highlight Folder and Label when label is clicked on
+	 * Or set it back to default style when unselected 
+	 */
 	private void setCSS(Boolean highlight) {
 		if (highlight) {
 			vBox.setStyle("-fx-effect: innershadow(gaussian, #039ed3, 10, 1.0, 0, 0);" +
