@@ -1,7 +1,6 @@
 package com.nilbmar.urlrun;
 
 import java.awt.Desktop;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 
