@@ -1,6 +1,7 @@
 package com.nilbmar.urlrun;
 
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -167,12 +169,18 @@ public class Favorite extends VBox{
 							} else {
 								// TODO: FIGURE OUT HOW TO OPEN DEFAULT FILE MANAGER
 								//       IN LINUX, POSSIBLY FOR EACH KNOWN FM
+								Clipboard clip = Clipboard.getSystemClipboard();
+								ClipboardContent content = new ClipboardContent();
+								content.putString(pathFull);
+								clip.setContent(content);
 								
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Information: Feature Unavailable");
 								alert.setHeaderText("This feature is currently unavailable in Linux");
 								alert.setContentText("It will arrive, eventually."
-										+ "\nCurrent Date: Nov. 6, 2016"); // Curious how long it takes to implement
+										+ "\nCurrent Date: Nov. 6, 2016" // Curious how long it takes to implement
+										+ "\n\nThe path has been copied into your clipboard."
+										+ "\n" + pathFull);
 								alert.showAndWait();
 							}
 							cm.hide();
