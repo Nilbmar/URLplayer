@@ -33,14 +33,20 @@ public class URLSave extends Application {
 	VBox outerBox;
 	Button btnAddFolder;
 	Button btnDelFolder;
+	
+	Button btnSwap;
 	Button btnMoveUp;
+	Button btnMoveDown;
 	Label pathLabel;
 	Label lblSaveConfirm;
 	ArrayList<Favorite> listOfFavorites = new ArrayList<Favorite>();
 	int idInList = 0;
 	Double DEFAULT_WIDTH = 200.0;
 	Double DEFAULT_HEIGHT = 200.0;
-		
+
+	Label lblMidSpacer;
+	Double stageWidth = 0.0;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
@@ -52,8 +58,9 @@ public class URLSave extends Application {
 			// Create control buttons and label
 						
 			// Create button to add a favorite folder
-			Image plusImg = new Image("/com/nilbmar/assets/Plus-icon.png");
+			Image plusImg = new Image("/com/nilbmar/assets/plus_16.png");
 			btnAddFolder = new Button();
+			//btnAddFolder.setText("New");
 			btnAddFolder.setGraphic(new ImageView(plusImg));
 			btnAddFolder.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -88,8 +95,9 @@ public class URLSave extends Application {
 			});
 			
 			// Create button to delete favorite folder
-			Image delImg = new Image("/com/nilbmar/assets/Editing-Delete-icon.png");
+			Image delImg = new Image("/com/nilbmar/assets/close_16.png");
 			btnDelFolder = new Button();
+			//btnDelFolder.setText("Delete");
 			btnDelFolder.setGraphic(new ImageView(delImg));
 			btnDelFolder.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -122,26 +130,62 @@ public class URLSave extends Application {
 				}
 			});
 			
+			Image downImg = new Image("/com/nilbmar/assets/left_16.png");
+			btnMoveDown = new Button();
+			btnMoveDown.setGraphic(new ImageView(downImg));
+			btnMoveDown.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					ArrayList<Integer> swapList = new ArrayList<Integer>();
+					swapList = getSwapList();
+					int swapNum = swapList.get(0);
+					
+					if (swapList.size() == 1 && swapNum != 0) {
+						swapFaves(swapNum, swapNum - 1);
+					} else {
+						System.out.println("Please select one Favorite to move left");
+					}
+					
+				}
+				
+			});
+			
+			Image upImg = new Image("/com/nilbmar/assets/right_16.png");
+			btnMoveUp = new Button();
+			//btnMoveUp.setText("Move Right");
+			btnMoveUp.setGraphic(new ImageView(upImg));
+			btnMoveUp.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					ArrayList<Integer> swapList = new ArrayList<Integer>();
+					swapList = getSwapList();
+					int swapNum = swapList.get(0);
+					int lastSwapAvailable = listOfFavorites.size() - 1;
+					
+					if (swapList.size() == 1 && swapNum < lastSwapAvailable) {
+						swapFaves(swapNum, swapNum + 1);
+					} else {
+						System.out.println("Please select one Favorite to move right");
+					}
+					
+				}
+				
+			});
+			
 			/* Button to swap positions of favorites
 			 * TEMP: HARD CODING NUMBERS FOR TESTING
 			 * TODO: SWAP OUT FOR REAL LOGIC
 			 */
-			Image upImg = new Image("/com/nilbmar/assets/swap_16.png");
-			btnMoveUp = new Button();
-			btnMoveUp.setGraphic(new ImageView(upImg));
-			btnMoveUp.setOnAction(new EventHandler<ActionEvent>() {
-
+			Image swapImg = new Image("/com/nilbmar/assets/swap_16.png");
+			btnSwap = new Button();
+			btnSwap.setGraphic(new ImageView(swapImg));
+			btnSwap.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					ArrayList<Integer> swapList = new ArrayList<Integer>();
 					
-					for (int x = 0; x < listOfFavorites.size(); x++) {
-						if (listOfFavorites.get(x).getSelected()) {
-							listOfFavorites.get(x).setSelected(false);
-							swapList.add(x);
-						}
-					}
+					swapList = getSwapList();
 					
 					if (swapList.size() == 2) {
 						// Complete swap
@@ -152,6 +196,9 @@ public class URLSave extends Application {
 				}
 				
 			});
+
+			// Create space between New/Delete buttons and Move buttons
+			lblMidSpacer = new Label();
 			
 			//TODO: FIGURE OUT HOW TO MAKE THIS DISAPPEAR AFTER A TIME
 			//		OR CHANGE IT TO A ICON THAT SELF-DESTRUCTS
@@ -172,6 +219,9 @@ public class URLSave extends Application {
 			
 			controlBox.getChildren().add(btnAddFolder);
 			controlBox.getChildren().add(btnDelFolder);
+			controlBox.getChildren().add(lblMidSpacer);
+			controlBox.getChildren().add(btnMoveDown);
+			controlBox.getChildren().add(btnSwap);
 			controlBox.getChildren().add(btnMoveUp);
 			controlBox.getChildren().add(lblSaveConfirm);
 			
@@ -242,7 +292,7 @@ public class URLSave extends Application {
 		if (newSize < DEFAULT_WIDTH) {
 			newSize = DEFAULT_WIDTH;
 		}
-		
+		lblMidSpacer.setPrefWidth(newSize);
 		return newSize;
 	}
 	
@@ -269,6 +319,19 @@ public class URLSave extends Application {
 		SaveFavorites delFromFile = new SaveFavorites();
 		delFromFile.delete(listOfFavorites.get(idToRemove).getPath());
 		listOfFavorites.remove(idToRemove);
+	}
+	
+	private ArrayList<Integer> getSwapList() {
+		ArrayList<Integer> swapList = new ArrayList<Integer>();
+		int listSize = listOfFavorites.size();
+		for (int x = 0; x < listSize; x++) {
+			if (listOfFavorites.get(x).getSelected()) {
+				listOfFavorites.get(x).setSelected(false);
+				swapList.add(x);
+			}
+		}
+		
+		return swapList;
 	}
 	
 	/* Allow favorites to be rearranged
