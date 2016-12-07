@@ -14,6 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -84,8 +85,9 @@ public class Favorite extends VBox{
 		
 		lblFolderName = new Label();
 		// TODO: TEXT ALIGNMENT ISN'T WORKING
-		lblFolderName.setTextAlignment(TextAlignment.LEFT);
+		lblFolderName.setTextAlignment(TextAlignment.CENTER);
 		lblFolderName.setWrapText(true);
+		lblFolderName.setCenterShape(true);
 		//lblFolderName.setMinSize(48, 48);
 		//lblFolderName.setMaxSize(48, 48);
 		setLabel();
@@ -94,7 +96,8 @@ public class Favorite extends VBox{
 		img = new ImageView();
 		img.setImage(new Image("/com/nilbmar/assets/Close-Folder-icon48x48.png"));
 		img.setFitHeight(48);
-		img.setFitWidth(48);	
+		img.setFitWidth(48);
+		
 		
 		// When folder icon is clicked		
 		img.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -267,42 +270,40 @@ public class Favorite extends VBox{
 			
 		});
 		
-		
 		// TODO: ADJUST SIZES AND PLACING OF NODES
 		//vBox.getChildren().add(btnDelFavorite);
+		vBox.setAlignment(Pos.TOP_CENTER);
 		vBox.getChildren().add(img);
 		vBox.getChildren().add(lblFolderName);
 		
 	}
 	
-	private String getRegExUppercase(String s) {
-		String temp = s;
+	private String splitAtUppercase(String input) {
+		String temp = "";
 		String regEx = "[A-Z]";
 		Pattern pattern = Pattern.compile(regEx);
-		Matcher matcher = pattern.matcher(temp);
+		Matcher matcher = pattern.matcher(input);
 		ArrayList<String> matches = new ArrayList<String>(); 
 		
 		int location = 0;
 		while (matcher.find()) {
 			location = matcher.start();
-			/*
-			if (location > 0) {
-				System.out.println(temp + ": Has an uppercase letter at index " + location);
-				temp = temp.substring(0, location) + "\n" + temp.substring(location);
-			}*/
-			if (location > 0) {
-				matches.add(temp.substring(location));
+			matches.add(input.substring(location));
+		}
+		
+		int splitCount = matches.size() - 1;
+		for (int x = splitCount - 1; x >= 0; x--) {
+			matches.set(x, matches.get(x).substring(0, matches.get(x).indexOf(matches.get(x + 1))));
+		}
+		
+		for (int x = 0; x < matches.size(); x++) {
+			if (x > 0) {
+				temp = temp + "\n" + matches.get(x);
+			} else {
+				temp = matches.get(x);
 			}
-			
-	
 		}
-		/*
-		int splitCount = matchIndex.size();
-		for (int x = 0; x < splitCount; x++) {
-			temp = temp.substring(0, matchIndex.get(x)) + "\n" + temp.substring( matchIndex.get(x));
-		}
-		*/
-		System.out.println(temp);
+		
 		return temp;
 	}
 	
@@ -326,7 +327,7 @@ public class Favorite extends VBox{
 				lblFolderName.setText(tempName);
 				System.out.println(tempName + " is less than the max letter count");
 			} else {
-				tempName = getRegExUppercase(tempName);
+				tempName = splitAtUppercase(tempName);
 				lblFolderName.setText(tempName);
 			}
 			
