@@ -3,6 +3,9 @@ package com.nilbmar.urlrun;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.nilbmar.utils.CreateURLFile;
 import com.nilbmar.utils.TitleStripper;
@@ -51,7 +54,7 @@ public class Favorite extends VBox{
 	private String url;
 	private String title;
 	
-	public Favorite(int favId, String path, HBox p, Label pathLabel, Scene scene) {
+	public Favorite(int favId, String path, HBox p, Label lblPath, Scene scene) {
 		this.id = favId;
 		this.pathFull = path;
 		this.parent = p;
@@ -83,8 +86,8 @@ public class Favorite extends VBox{
 		// TODO: TEXT ALIGNMENT ISN'T WORKING
 		lblFolderName.setTextAlignment(TextAlignment.LEFT);
 		lblFolderName.setWrapText(true);
-		lblFolderName.setMinSize(48, 48);
-		lblFolderName.setMaxSize(48, 48);
+		//lblFolderName.setMinSize(48, 48);
+		//lblFolderName.setMaxSize(48, 48);
 		setLabel();
 		
 		
@@ -246,7 +249,7 @@ public class Favorite extends VBox{
 			@Override
 			public void handle(MouseEvent event) {
 				// TODO Change to ToolTip
-				pathLabel.setText(pathFull);
+				lblPath.setText(pathFull);
 				scene.setCursor(Cursor.HAND);
 			}
 			
@@ -257,7 +260,7 @@ public class Favorite extends VBox{
 			@Override
 			public void handle(MouseEvent event) {
 				// TODO Change to ToolTip
-				pathLabel.setText(" ");
+				lblPath.setText(" ");
 				scene.setCursor(Cursor.DEFAULT);
 				
 			}
@@ -272,17 +275,59 @@ public class Favorite extends VBox{
 		
 	}
 	
+	private String getRegExUppercase(String s) {
+		String temp = s;
+		String regEx = "[A-Z]";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(temp);
+		ArrayList<String> matches = new ArrayList<String>(); 
+		
+		int location = 0;
+		while (matcher.find()) {
+			location = matcher.start();
+			/*
+			if (location > 0) {
+				System.out.println(temp + ": Has an uppercase letter at index " + location);
+				temp = temp.substring(0, location) + "\n" + temp.substring(location);
+			}*/
+			if (location > 0) {
+				matches.add(temp.substring(location));
+			}
+			
+	
+		}
+		/*
+		int splitCount = matchIndex.size();
+		for (int x = 0; x < splitCount; x++) {
+			temp = temp.substring(0, matchIndex.get(x)) + "\n" + temp.substring( matchIndex.get(x));
+		}
+		*/
+		System.out.println(temp);
+		return temp;
+	}
+	
 	private void setLabel() {
+		int LABEL_MAX = 7; // TODO: GET FROM CONFIG FILE
+		String tempName = null;
 		String split = System.getProperty("file.separator");
 		int locLastSplit = pathFull.lastIndexOf(split) + 1;
 		
+		
 		// Set label to last folder name in path
 		if (locLastSplit > 0) {
-			lblFolderName.setText(pathFull.substring(locLastSplit));
+			
+			tempName = pathFull.substring(locLastSplit);
+			//lblFolderName.setText(pathFull.substring(locLastSplit));
 			
 			// If path is a drive (ie. 'C:\') set it to the full path
 			if (pathFull.indexOf(split) == pathFull.length() - 1) {
 				lblFolderName.setText(pathFull);		
+			} else if (tempName.length() <= LABEL_MAX) {
+				lblFolderName.setText(tempName);
+				System.out.println(tempName + " is less than the max letter count");
+			} else {
+				tempName = getRegExUppercase(tempName);
+				lblFolderName.setText(tempName);
 			}
 			
 			// TODO: TRY TO MAKE THIS TOOLTIP SHOW UP WHEN HOVERING ABOVE THE WHOLE FAVORITE
