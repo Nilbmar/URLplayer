@@ -37,7 +37,7 @@ public class URLSave extends Application {
 	Button btnSwap;
 	Button btnMoveUp;
 	Button btnMoveDown;
-	Label pathLabel;
+	Label lblPath;
 	Label lblSaveConfirm;
 	ArrayList<Favorite> listOfFavorites = new ArrayList<Favorite>();
 	int idInList = 0;
@@ -76,7 +76,7 @@ public class URLSave extends Application {
 					if (dirPath != null) {
 						
 						// Create a new Favorite Folder (folder icon, path, label)
-						Favorite newFavorite = new Favorite(idInList, dirPath, faveBox, pathLabel, scene);
+						Favorite newFavorite = new Favorite(idInList, dirPath, faveBox, lblPath, scene);
 						
 						// Save that location into OS appropriate config file
 						SaveFavorites fav = new SaveFavorites();
@@ -207,9 +207,9 @@ public class URLSave extends Application {
 			lblSaveConfirm.setStyle("-fx-padding: 5;");
 			
 			// Shows the full path of a favorite when hovered over
-			pathLabel = new Label();
-			pathLabel.setText(" ");
-			pathLabel.setStyle("-fx-padding: 5;");
+			lblPath = new Label();
+			lblPath.setText(" ");
+			lblPath.setStyle("-fx-padding: 5;");
 			
 			// Prepare scene areas
 			outerBox = new VBox();
@@ -225,7 +225,7 @@ public class URLSave extends Application {
 			controlBox.getChildren().add(btnMoveUp);
 			controlBox.getChildren().add(lblSaveConfirm);
 			
-			bottomBox.getChildren().add(pathLabel);
+			bottomBox.getChildren().add(lblPath);
 			
 			outerBox.getChildren().add(controlBox);
 			outerBox.getChildren().add(faveBox);
@@ -262,7 +262,7 @@ public class URLSave extends Application {
 				if (folder.exists()) {
 					// Add saved Favorites (folder icon, path, label)
 					// to the scene
-					Favorite newFavorite = new Favorite(idInList, fave, faveBox, pathLabel, scene);
+					Favorite newFavorite = new Favorite(idInList, fave, faveBox, lblPath, scene);
 					// TODO: CHANGE THIS AND ALL ADDS SO THEY GO LAST IN LIST
 					// IF DON'T USE THE INT, WILL BE ADDED AFTER ADDBUTTON
 					faveBox.getChildren().add(idInList, newFavorite.get());
