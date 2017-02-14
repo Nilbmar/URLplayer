@@ -172,21 +172,24 @@ public class Favorite extends VBox{
 									e.printStackTrace();
 								}
 							} else {
-								// TODO: FIGURE OUT HOW TO OPEN DEFAULT FILE MANAGER
-								//       IN LINUX, POSSIBLY FOR EACH KNOWN FM
-								Clipboard clip = Clipboard.getSystemClipboard();
-								ClipboardContent content = new ClipboardContent();
-								content.putString(pathFull);
-								clip.setContent(content);
-								
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Information: Feature Unavailable");
-								alert.setHeaderText("This feature is currently unavailable in Linux");
-								alert.setContentText("It will arrive, eventually."
-										+ "\nCurrent Date: Nov. 6, 2016" // Curious how long it takes to implement
-										+ "\n\nThe path has been copied into your clipboard."
-										+ "\n" + pathFull);
-								alert.showAndWait();
+								if (os.contains("linux")) {
+									File folder = new File(pathFull);
+									try {
+										/* Have to pass the command to Runtime
+										 * as an array, because if it is passed
+										 * as a string, blank spaces are parsed
+										 * regardless of whether they're enclosed
+										 * with quotation marks, or use backslashes
+										 * in front of the space like in the terminal
+										 * 
+										 */
+										String fileMan = "caja"; // Get prefered file manager
+										String[] command = {fileMan, path};
+										Runtime.getRuntime().exec(command);
+									} catch (IOException e) {
+										e.printStackTrace();
+									}
+								}
 							}
 							cm.hide();
 						}
