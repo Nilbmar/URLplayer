@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.nilbmar.favs.Favorite;
 import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
 
@@ -24,7 +25,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 
-public class URLSave extends Application {
+public class URLRun extends Application {
 	
 	Scene scene = null;
 	HBox controlBox;

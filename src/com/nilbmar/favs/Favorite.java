@@ -1,4 +1,4 @@
-package com.nilbmar.urlrun;
+package com.nilbmar.favs;
 
 import java.awt.Desktop;
 import java.io.File;
