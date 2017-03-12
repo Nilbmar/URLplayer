@@ -173,7 +173,6 @@ public class Favorite extends VBox{
 								}
 							} else {
 								if (os.contains("linux")) {
-									File folder = new File(pathFull);
 									try {
 										/* Have to pass the command to Runtime
 										 * as an array, because if it is passed
