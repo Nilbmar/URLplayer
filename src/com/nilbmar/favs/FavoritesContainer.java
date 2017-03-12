@@ -141,5 +141,17 @@ public class FavoritesContainer extends HBox {
 		return listOfFavorites.size();
 		
 	}
+	
+	public void addFaveToList(Favorite newFavorite) {
+		listOfFavorites.add(newFavorite);
+	}
+	
+	public ArrayList<Favorite> getListOfFavorites() {
+		return listOfFavorites;
+	}
+	
+	public int getLastIdInList() {
+		return getListSize();
+	}
 
 }

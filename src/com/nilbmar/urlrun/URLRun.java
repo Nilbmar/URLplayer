@@ -36,8 +36,7 @@ public class URLRun extends Application {
 	Button btnMoveDown;
 	Label lblPath;
 	Label lblSaveConfirm;
-	ArrayList<Favorite> listOfFavorites = new ArrayList<Favorite>();
-	int idInList = 0;
+	
 	Double DEFAULT_WIDTH = 200.0;
 	Double DEFAULT_HEIGHT = 200.0;
 
@@ -71,7 +70,7 @@ public class URLRun extends Application {
 					String dirPath  = directoryChooser.showDialog(primaryStage).getAbsolutePath();
 					
 					if (dirPath != null) {
-						
+						int idInList = faveBox.getLastIdInList();
 						// Create a new Favorite Folder (folder icon, path, label)
 						Favorite newFavorite = new Favorite(idInList, dirPath, faveBox, lblPath, scene);
 						
@@ -82,8 +81,7 @@ public class URLRun extends Application {
 						// Add Favoite to scene
 						// TODO: DROP DOWN TO ANOTHER LEVEL
 						faveBox.getChildren().add(idInList, newFavorite.get());
-						listOfFavorites.add(newFavorite);
-						idInList++;
+						faveBox.addFaveToList(newFavorite);
 						
 						// TODO: Reset screen width
 						primaryStage.setWidth(faveBox.getNewSize(DEFAULT_WIDTH));
@@ -101,6 +99,7 @@ public class URLRun extends Application {
 				public void handle(ActionEvent event) {
 
 					ArrayList<Integer> itemsToDel = new ArrayList<Integer>();
+					ArrayList<Favorite> listOfFavorites = faveBox.getListOfFavorites();
 					
 					for (int x = 0; x < listOfFavorites.size(); x++) {
 						if (listOfFavorites.get(x).getSelected()) {
