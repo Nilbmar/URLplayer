@@ -42,7 +42,7 @@ public class Favorite extends VBox{
 
 	Parent parent;
 	private VBox vBox;
-	
+	private Scene scene = null;
 	private int id;
 	private boolean saveConfirmed = false;
 	private boolean selected = false;
@@ -58,6 +58,7 @@ public class Favorite extends VBox{
 		this.id = favId;
 		this.pathFull = path;
 		this.parent = p;
+		this.scene = scene;
 		
 		vBox = new VBox();
 		setCSS(selected);

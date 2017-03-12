@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.nilbmar.favs.Favorite;
+import com.nilbmar.favs.FavoritesContainer;
 import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
 
@@ -29,7 +30,7 @@ public class URLRun extends Application {
 	
 	Scene scene = null;
 	HBox controlBox;
-	HBox faveBox;
+	FavoritesContainer faveBox;
 	HBox bottomBox;
 	VBox outerBox;
 	Button btnAddFolder;
@@ -89,8 +90,8 @@ public class URLRun extends Application {
 						listOfFavorites.add(newFavorite);
 						idInList++;
 						
-						// Reset screen width
-						primaryStage.setWidth(getNewSize());
+						// TODO: Reset screen width
+						//primaryStage.setWidth(getNewSize());
 					}
 				}
 			});
@@ -122,10 +123,10 @@ public class URLRun extends Application {
 					}
 					
 					for (int id : deleteMe) {
-						deleteFave(id);
+						faveBox.deleteFave(id);
 						
-						// Reset screen width
-						primaryStage.setWidth(getNewSize());
+						// TODO: Reset screen width
+						//primaryStage.setWidth(getNewSize());
 					}
 					
 				}
@@ -139,11 +140,11 @@ public class URLRun extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					ArrayList<Integer> swapList = new ArrayList<Integer>();
-					swapList = getSwapList();
+					swapList = faveBox.getSwapList();
 					int swapNum = swapList.get(0);
 					
 					if (swapList.size() == 1 && swapNum != 0) {
-						swapFaves(swapNum, swapNum - 1);
+						faveBox.swapFaves(swapNum, swapNum - 1);
 					} else {
 						System.out.println("Please select one Favorite to move left");
 					}
@@ -161,12 +162,12 @@ public class URLRun extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					ArrayList<Integer> swapList = new ArrayList<Integer>();
-					swapList = getSwapList();
+					swapList = faveBox.getSwapList();
 					int swapNum = swapList.get(0);
 					int lastSwapAvailable = listOfFavorites.size() - 1;
 					
 					if (swapList.size() == 1 && swapNum < lastSwapAvailable) {
-						swapFaves(swapNum, swapNum + 1);
+						faveBox.swapFaves(swapNum, swapNum + 1);
 					} else {
 						System.out.println("Please select one Favorite to move right");
 					}
@@ -185,11 +186,11 @@ public class URLRun extends Application {
 					// TODO Auto-generated method stub
 					ArrayList<Integer> swapList = new ArrayList<Integer>();
 					
-					swapList = getSwapList();
+					swapList = faveBox.getSwapList();
 					
 					if (swapList.size() == 2) {
 						// Complete swap
-						swapFaves(swapList.get(0), swapList.get(1));
+						faveBox.swapFaves(swapList.get(0), swapList.get(1));
 					} else {
 						System.out.println("Select two favorites to swap by clicking on their labels");
 					}
@@ -215,7 +216,7 @@ public class URLRun extends Application {
 			// Prepare scene areas
 			outerBox = new VBox();
 			controlBox = new HBox();
-			faveBox = new HBox(); // TODO: SET THIS TO FavoritesContainer
+			faveBox = new FavoritesContainer(lblPath, scene);//new HBox(); // TODO: SET THIS TO FavoritesContainer
 			bottomBox = new HBox();
 			
 			controlBox.getChildren().add(btnAddFolder);
@@ -239,10 +240,10 @@ public class URLRun extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
-			autoLoadFavorites();
+			faveBox.autoLoadFavorites();
 			
-			// Reset screen width
-			primaryStage.setWidth(getNewSize());
+			// TODO: Reset screen width
+			//primaryStage.setWidth(getNewSize());
 			
 
 			
@@ -251,117 +252,6 @@ public class URLRun extends Application {
 		}
 	}
 
-	private void autoLoadFavorites() {
-		// Reads a list of Favorites from config file
-		// to load them at startup
-		ReadFavorites faves = new ReadFavorites();
-		String[] arrFaves = faves.getString();
-		for (String fave : arrFaves) {
-			
-			if (fave != null && !fave.isEmpty()) {
-				File folder = new File(fave);
-				if (folder.exists()) {
-					// Add saved Favorites (folder icon, path, label)
-					// to the scene
-					Favorite newFavorite = new Favorite(idInList, fave, faveBox, lblPath, scene);
-					// TODO: CHANGE THIS AND ALL ADDS SO THEY GO LAST IN LIST
-					// IF DON'T USE THE INT, WILL BE ADDED AFTER ADDBUTTON
-					faveBox.getChildren().add(idInList, newFavorite.get());
-					listOfFavorites.add(newFavorite);
-				}
-				idInList++;
-			}
-		}	
-	}
-	
-	/* Resize window to fit number of favorites
-	 * Called at program start
-	 * when adding new favorites
-	 * when removing favorites
-	 */
-	private Double getNewSize() {
-		// May need to change this back to ReadFavorites
-		//ReadFavorites faves = new ReadFavorites();
-		//String[] arrFaves = faves.getString();
-		//int faveCount = arrFaves.length; // 2 folders showing, int will be 2
-		
-		// Get count for how many faves
-		int faveCount = faveBox.getChildren().size();
-		
-		// Calculate new width
-		Double newSize = (double) ((faveCount * 64)); // was going + 2, leaving it out for now
-		if (newSize < DEFAULT_WIDTH) {
-			newSize = DEFAULT_WIDTH;
-		}
-		lblMidSpacer.setPrefWidth(newSize);
-		return newSize;
-	}
-	
-	/* Remove favorite from
-	 * listOfFavorites, faveBox, and text file
-	 * 
-	 * Correct the id number of all Favorites after
-	 * the one deleted
-	 */
-	private void deleteFave(int id) {
-		int idToRemove = id;
-		int countOfFavorites = faveBox.getChildren().size();
-		
-		// Correct id numbers in Favorites
-		int countToUpdate = countOfFavorites - (idToRemove + 1);
-		if (countToUpdate > 0) {
-			for (int x = id + 1; x < countOfFavorites; x++) {
-				listOfFavorites.get(x).setFaveId(x - 1);
-			}			
-		}
-
-		// Removal from display, save file, and list
-		faveBox.getChildren().remove(idToRemove);
-		SaveFavorites delFromFile = new SaveFavorites();
-		delFromFile.delete(listOfFavorites.get(idToRemove).getPath());
-		listOfFavorites.remove(idToRemove);
-	}
-	
-	private ArrayList<Integer> getSwapList() {
-		ArrayList<Integer> swapList = new ArrayList<Integer>();
-		int listSize = listOfFavorites.size();
-		for (int x = 0; x < listSize; x++) {
-			if (listOfFavorites.get(x).getSelected()) {
-				listOfFavorites.get(x).setSelected(false);
-				swapList.add(x);
-			}
-		}
-		
-		return swapList;
-	}
-	
-	/* Allow favorites to be rearranged
-	 * moveUp, true will move up index
-	 * false will move down index
-	 */
-	private void swapFaves(int idOne, int idTwo) {
-		// Swap in display
-		ObservableList<Node> newList = FXCollections.observableArrayList(faveBox.getChildren());
-		Collections.swap(newList, idOne, idTwo);
-		faveBox.getChildren().setAll(newList);
-		
-		// Swap in list
-		Collections.swap(listOfFavorites, idOne, idTwo);
-		System.out.println(listOfFavorites);
-		
-		/* Save full list of swapped favorites */
-		// Get a list of locations stored in each Favorite 
-		ArrayList<String> listFaveLocations = new ArrayList<String>();
-		for (Favorite f : listOfFavorites) {
-			listFaveLocations.add(f.getPath());
-		}
-		// Change the ArrayList to String[]
-		String[] arrOfFavorites = new String[listFaveLocations.size()];
-		arrOfFavorites = listFaveLocations.toArray(arrOfFavorites);
-		// Do the actual saving
-		SaveFavorites saveList = new SaveFavorites();
-		saveList.save(arrOfFavorites);
-	}
 	
 	public static void main(String[] args) {
 		launch(args);
