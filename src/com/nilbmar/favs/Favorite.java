@@ -293,16 +293,21 @@ public class Favorite extends VBox{
 			matches.add(input.substring(location));
 		}
 		
+		// Only split name if more than one uppercase letter
 		int splitCount = matches.size() - 1;
-		for (int x = splitCount - 1; x >= 0; x--) {
-			matches.set(x, matches.get(x).substring(0, matches.get(x).indexOf(matches.get(x + 1))));
-		}
-		
-		for (int x = 0; x < matches.size(); x++) {
-			if (x > 0) {
-				temp = temp + "\n" + matches.get(x);
-			} else {
-				temp = matches.get(x);
+		if (splitCount <= 0) {
+			return input;
+		} else {
+			for (int x = splitCount - 1; x >= 0; x--) {
+				matches.set(x, matches.get(x).substring(0, matches.get(x).indexOf(matches.get(x + 1))));
+			}
+			
+			for (int x = 0; x < matches.size(); x++) {
+				if (x > 0) {
+					temp = temp + "\n" + matches.get(x);
+				} else {
+					temp = matches.get(x);
+				}
 			}
 		}
 		
