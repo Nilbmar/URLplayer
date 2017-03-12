@@ -136,5 +136,10 @@ public class FavoritesContainer extends HBox {
 		SaveFavorites saveList = new SaveFavorites();
 		saveList.save(arrOfFavorites);
 	}
+	
+	public int getListSize() {
+		return listOfFavorites.size();
+		
+	}
 
 }
