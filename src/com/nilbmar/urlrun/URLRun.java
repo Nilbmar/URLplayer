@@ -131,6 +131,7 @@ public class URLRun extends Application {
 				}
 			});
 			
+			// Create button to move favorite folder (to the right)
 			Image downImg = new Image("/com/nilbmar/assets/left_16.png");
 			btnMoveDown = new Button();
 			btnMoveDown.setGraphic(new ImageView(downImg));
@@ -151,6 +152,7 @@ public class URLRun extends Application {
 				
 			});
 			
+			// Create button to move favorite folder (to the left)
 			Image upImg = new Image("/com/nilbmar/assets/right_16.png");
 			btnMoveUp = new Button();
 			//btnMoveUp.setText("Move Right");
@@ -173,10 +175,7 @@ public class URLRun extends Application {
 				
 			});
 			
-			/* Button to swap positions of favorites
-			 * TEMP: HARD CODING NUMBERS FOR TESTING
-			 * TODO: SWAP OUT FOR REAL LOGIC
-			 */
+			// Creates a button to swap positions of favorites
 			Image swapImg = new Image("/com/nilbmar/assets/swap_16.png");
 			btnSwap = new Button();
 			btnSwap.setGraphic(new ImageView(swapImg));
@@ -201,8 +200,9 @@ public class URLRun extends Application {
 			// Create space between New/Delete buttons and Move buttons
 			lblMidSpacer = new Label();
 			
-			//TODO: FIGURE OUT HOW TO MAKE THIS DISAPPEAR AFTER A TIME
-			//		OR CHANGE IT TO A ICON THAT SELF-DESTRUCTS
+			// TODO: FIGURE OUT HOW TO MAKE THIS DISAPPEAR AFTER A TIME
+			//	     OR CHANGE IT TO A ICON THAT SELF-DESTRUCTS
+			// TODO: THIS MAY BE UNUSED, CAN I DELETE IT?
 			lblSaveConfirm = new Label();
 			lblSaveConfirm.setText(" ");
 			lblSaveConfirm.setStyle("-fx-padding: 5;");
@@ -215,7 +215,7 @@ public class URLRun extends Application {
 			// Prepare scene areas
 			outerBox = new VBox();
 			controlBox = new HBox();
-			faveBox = new HBox();
+			faveBox = new HBox(); // TODO: SET THIS TO FavoritesContainer
 			bottomBox = new HBox();
 			
 			controlBox.getChildren().add(btnAddFolder);
