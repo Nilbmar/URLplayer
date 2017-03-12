@@ -55,25 +55,21 @@ public class FavoritesContainer extends HBox {
 	 * Called at program start
 	 * when adding new favorites
 	 * when removing favorites
-	private Double getNewSize() {
-		// May need to change this back to ReadFavorites
-		//ReadFavorites faves = new ReadFavorites();
-		//String[] arrFaves = faves.getString();
-		//int faveCount = arrFaves.length; // 2 folders showing, int will be 2
-		
+	 */
+	public Double getNewSize(Double defaultWidth) {
 		// Get count for how many faves
 		int faveCount = this.getChildren().size();
 		
 		
 		// Calculate new width
 		Double newSize = (double) ((faveCount * 64)); // was going + 2, leaving it out for now
-		if (newSize < DEFAULT_WIDTH) {
-			newSize = DEFAULT_WIDTH;
+		if (newSize < defaultWidth) {
+			newSize = defaultWidth;
 		}
-		lblMidSpacer.setPrefWidth(newSize);
+		//lblMidSpacer.setPrefWidth(newSize);
 		return newSize;
 	}
-	*/
+	
 	
 	/* Remove favorite from
 	 * listOfFavorites, this, and text file

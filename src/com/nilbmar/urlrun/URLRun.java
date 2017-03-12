@@ -86,7 +86,7 @@ public class URLRun extends Application {
 						idInList++;
 						
 						// TODO: Reset screen width
-						//primaryStage.setWidth(getNewSize());
+						primaryStage.setWidth(faveBox.getNewSize(DEFAULT_WIDTH));
 					}
 				}
 			});
@@ -121,7 +121,7 @@ public class URLRun extends Application {
 						faveBox.deleteFave(id);
 						
 						// TODO: Reset screen width
-						//primaryStage.setWidth(getNewSize());
+						primaryStage.setWidth(faveBox.getNewSize(DEFAULT_WIDTH));
 					}
 					
 				}
@@ -238,7 +238,7 @@ public class URLRun extends Application {
 			faveBox.autoLoadFavorites();
 			
 			// TODO: Reset screen width
-			//primaryStage.setWidth(getNewSize());
+			primaryStage.setWidth(faveBox.getNewSize(DEFAULT_WIDTH));
 			
 
 			
