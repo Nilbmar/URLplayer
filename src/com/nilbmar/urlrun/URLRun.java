@@ -127,7 +127,7 @@ public class URLRun extends Application {
 				}
 			});
 			
-			// Create button to move favorite folder (to the right)
+			// Create button to move favorite folder (to the left)
 			Image downImg = new Image("/com/nilbmar/assets/left_16.png");
 			btnMoveDown = new Button();
 			btnMoveDown.setGraphic(new ImageView(downImg));
@@ -148,7 +148,7 @@ public class URLRun extends Application {
 				
 			});
 			
-			// Create button to move favorite folder (to the left)
+			// Create button to move favorite folder (to the right)
 			Image upImg = new Image("/com/nilbmar/assets/right_16.png");
 			btnMoveUp = new Button();
 			//btnMoveUp.setText("Move Right");
@@ -159,7 +159,7 @@ public class URLRun extends Application {
 					ArrayList<Integer> swapList = new ArrayList<Integer>();
 					swapList = faveBox.getSwapList();
 					int swapNum = swapList.get(0);
-					int lastSwapAvailable = listOfFavorites.size() - 1;
+					int lastSwapAvailable = faveBox.getListSize() - 1;
 					
 					if (swapList.size() == 1 && swapNum < lastSwapAvailable) {
 						faveBox.swapFaves(swapNum, swapNum + 1);
