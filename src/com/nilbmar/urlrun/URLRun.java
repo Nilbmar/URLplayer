@@ -1,20 +1,15 @@
 package com.nilbmar.urlrun;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import com.nilbmar.favs.Favorite;
 import com.nilbmar.favs.FavoritesContainer;
-import com.nilbmar.utils.ReadFavorites;
 import com.nilbmar.utils.SaveFavorites;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
