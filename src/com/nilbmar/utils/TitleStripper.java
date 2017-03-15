@@ -57,6 +57,7 @@ public class TitleStripper {
 		String newTitle = t;
 		//TODO: MOVE ALL OF THESE TO A CONFIG FILE
 		newTitle = newTitle.replaceAll("&quot;", "-");	// removes all quotation marks
+		newTitle = newTitle.replaceAll("&amp;", "&");	// replaces code for & with the actual &
 		newTitle = newTitle.replaceAll(":", "-");		// removes all colons ":"
 		newTitle = newTitle.replaceAll("/",  "-");		// removes all forward slashes "/"
 		newTitle = newTitle.replaceAll("\\|",  "-");	// removes all pipes "|"
