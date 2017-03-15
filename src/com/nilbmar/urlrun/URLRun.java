@@ -209,6 +209,12 @@ public class URLRun extends Application {
 			
 			// Prepare scene areas
 			outerBox = new VBox();
+			
+			// Placed scene up here so I can
+			// pass it to FavoritesContainer and then to Favorites
+			// to set cursor on hovering
+			scene = new Scene(outerBox);
+			
 			controlBox = new HBox();
 			faveBox = new FavoritesContainer(lblPath, scene);//new HBox(); // TODO: SET THIS TO FavoritesContainer
 			bottomBox = new HBox();
@@ -229,8 +235,7 @@ public class URLRun extends Application {
 			
 			
 			
-			scene = new Scene(outerBox);
-			
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			

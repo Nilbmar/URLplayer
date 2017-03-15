@@ -40,8 +40,6 @@ public class FavoritesContainer extends HBox {
 					// Add saved Favorites (folder icon, path, label)
 					// to the scene
 					Favorite newFavorite = new Favorite(idInList, fave, this, lblPath, scene);
-					// TODO: CHANGE THIS AND ALL ADDS SO THEY GO LAST IN LIST
-					// IF DON'T USE THE INT, WILL BE ADDED AFTER ADDBUTTON
 					this.getChildren().add(idInList, newFavorite.get());
 					listOfFavorites.add(newFavorite);
 				}

@@ -255,7 +255,7 @@ public class Favorite extends VBox{
 			public void handle(MouseEvent event) {
 				// TODO Change to ToolTip
 				lblPath.setText(pathFull);
-				//scene.setCursor(Cursor.HAND);
+				scene.setCursor(Cursor.HAND);
 			}
 			
 		});
@@ -266,7 +266,7 @@ public class Favorite extends VBox{
 			public void handle(MouseEvent event) {
 				// TODO Change to ToolTip
 				lblPath.setText(" ");
-				//scene.setCursor(Cursor.DEFAULT);
+				scene.setCursor(Cursor.DEFAULT);
 				
 			}
 			
