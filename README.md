@@ -22,5 +22,6 @@ Adding, Deleting, and Rearranging
 
 ### Opening Favorite Folders
 ![Opening Favorite Folders](demo/Dropzone%20Open%20Folder%202017-11-02%2000-13.gif?raw=true "Opening Favorite folders")
+
 Right click on a folder icon and select Open Folder
 
