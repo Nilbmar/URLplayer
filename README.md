@@ -1,7 +1,7 @@
 # Dropzone
 Create .URL internet shortcuts in the Windows format whether on Linux or Windows
 
-[url-opener-linux script](https://github.com/Nilbmar/url-opener-linux) required for opening the created files on Linux
+
 
 ## Purpose
 The Windows operating system has a feature that allows you to save website addresses on your harddrive in the form of .URL files. The file is a text file with a header that says [InternetShortcut] followed by "URL=" and the address. 
@@ -31,5 +31,9 @@ Adding, Deleting, and Rearranging
 
 Right click on a folder icon and select Open Folder
 
-(Note: On Linux, the file manager is currently assumed to be Caja. Settings will be added in future releases.)
+### Notes
+
+* On Linux, the file manager is currently assumed to be Caja. The "Open Folder" command will not work in Linux unless Caja is installed. Settings will be added in future releases for other major Linux file managers.
+
+* The [url-opener-linux script](https://github.com/Nilbmar/url-opener-linux) is required for opening the created files on Linux. No script is needed for Windows.
 
