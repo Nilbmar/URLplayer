@@ -37,3 +37,7 @@ Right click on a folder icon and select Open Folder
 
 * The [url-opener-linux script](https://github.com/Nilbmar/url-opener-linux) is required for opening the created files on Linux. No script is needed for Windows.
 
+
+## Code
+* [Dropzone GUI Version](https://github.com/Nilbmar/URLplayer/tree/master/src/com/nilbmar)
+* A command line version, which allows for integration into integration of some file managers' right-click menus, will be uploaded soon.
