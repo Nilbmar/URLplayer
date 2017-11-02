@@ -13,3 +13,7 @@ Adding, Deleting, and Rearranging
 * Click and hold the Location Bar's "Site Information" button, then drag it to the folder icon, and release.
 * Right click a link, click "Copy Link Location" from the pop-up menu, and left click on the folder icon.
 
+### Opening Favorite Folders
+![Opening Favorite Folders](/demo/blahblah.gif?raw=true "Opening Favorite folders")
+Right click on a folder icon and select Open Folder
+
