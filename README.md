@@ -1,6 +1,13 @@
 # Dropzone
 Create .URL internet shortcuts in the Windows format whether on Linux or Windows
 
+## Purpose
+The Windows operating system has a feature that allows you to save website addresses on your harddrive in the form of .URL files. The file is a text file with a header that says [InternetShortcut] followed by "URL=" and the address. 
+
+Certain video links, such as on Youtube, can save to a particular time in the video. It is possible to open the .URL file and manually change the "URL=" field to the one with the time stamp, but that is an annoyance.
+
+With Dropzone, you can copy the timestamped link from Youtube's right-click menu, then click on the folder icon of one of your Favorites in Dropzone to easily save the corrected link.
+
 ## Demonstrations
 
 ### Managing Your Favorite Folders
