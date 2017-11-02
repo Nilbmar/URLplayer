@@ -22,7 +22,7 @@ Adding, Deleting, and Rearranging
 ![Saving links](/demo/Dropzone%20Saving%202017-11-01%2023-15.gif?raw=true "Saving Links")
 * Click and hold a link, drag it over the folder icon, and release.
 * Click and hold the Location Bar's "Site Information" button, then drag it to the folder icon, and release.
-* Right click a link, click "Copy Link Location" from the pop-up menu, and left click on the folder icon.
+* Right click a link, click "Copy link address" from the pop-up menu, and left click on the folder icon.
 
 
 
