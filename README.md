@@ -5,8 +5,11 @@ Create .URL internet shortcuts in the Windows format whether on Linux or Windows
 
 ### Managing Your Favorite Folders
 Adding, Deleting, and Rearranging
-![Managing favorite folders](/demo/Dropzone Favorites 2017-11-01 23-41.gif)
+![Managing favorite folders](/demo/Dropzone%20Favorites%202017-11-01%2023-41.gif?raw=true "Managing Favorites")
 
 ### Using Dropzone to save links
-![Saving links](/demo/Dropzone Saving 2017-11-01 23-15.gif)
+![Saving links](/demo/Dropzone%20Saving%202017-11-01%2023-15.gif?raw=true "Saving Links")
+* Click and hold a link, drag it over the folder icon, and release.
+* Click and hold the Location Bar's "Site Information" button, then drag it to the folder icon, and release.
+* Right click a link, click "Copy Link Location" from the pop-up menu, and left click on the folder icon.
 
