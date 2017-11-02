@@ -31,5 +31,5 @@ Adding, Deleting, and Rearranging
 
 Right click on a folder icon and select Open Folder
 
-(Note: On Linux, the file manager is currently assumed to be Caja, but I will create adjustable settings in time.)
+(Note: On Linux, the file manager is currently assumed to be Caja. Settings will be added in future releases.)
 
