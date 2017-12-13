@@ -40,4 +40,4 @@ Right click on a folder icon and select Open Folder
 
 ## Code
 * [Dropzone GUI Version](https://github.com/Nilbmar/URLplayer/tree/master/src/com/nilbmar)
-* A command line version, which allows for integration into integration of some file managers' right-click menus, will be uploaded soon.
+* A command line version, which allows for integration into some file managers' right-click menus, will be uploaded soon.
